@@ -32,9 +32,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/products/welcome","/products/new","/users/new", "/room/add", "/api/room/add", "/demo/add").permitAll()
+                .requestMatchers("/products/welcome","/products/new","/users/new", "/room/add", "/demo/add").permitAll()
                 .and()
-                .authorizeHttpRequests().requestMatchers("/products/**")
+                .authorizeHttpRequests().requestMatchers("/products/**", "/room/all", "/room/{id}")
                 .authenticated().and().formLogin().and().build();
     }
 

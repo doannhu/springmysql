@@ -21,10 +21,10 @@ public class ProductController {
         return "Welcome to Room management App!";
     }
 
-//    @PostMapping("/new")
-//    public String addNewUser(@RequestBody UserInfo userInfo){
-//        return service.addUser(userInfo);
-//    }
+    @GetMapping("/test")
+    public String auth_test() {
+        return "Hello, this is a secured link!";
+    }
 
     @GetMapping("/all")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")

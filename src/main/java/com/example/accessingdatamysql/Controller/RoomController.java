@@ -8,6 +8,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import com.example.accessingdatamysql.Service.RoomService;
 
+import java.util.List;
+
 @RestController // This means that this class is a Controller
 @RequestMapping("/room") // This means URL's start with /demo (after Application path)
 public class RoomController {
@@ -29,8 +31,17 @@ public class RoomController {
 
     @GetMapping("/all")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public @ResponseBody Iterable<Room> getAllRooms() {
-        // This returns a JSON or XML with the users
+    // public @ResponseBody Iterable<Room> getAllRooms() {
+    //     // This returns a JSON or XML with the users
+    //     return roomRepository.findAll();
+    // }
+    public List<Room> all() {
         return roomRepository.findAll();
+    }
+
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('ROLE_OWNER')")
+    public Room one(@PathVariable Integer id) {
+        return roomRepository.findById(id).orElseThrow(() -> new RoomNotFoundException(id));
     }
 }
