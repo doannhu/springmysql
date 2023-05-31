@@ -3,6 +3,8 @@ package com.example.accessingdatamysql.Service;
 
 import com.example.accessingdatamysql.Entity.UserInfo;
 import com.example.accessingdatamysql.Repository.UserInfoRepository;
+
+import org.hibernate.mapping.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

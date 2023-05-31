@@ -36,7 +36,7 @@ public class RoomController {
     //     return roomRepository.findAll();
     // }
     public List<Room> all() {
-        return roomRepository.findAll();
+        return roomService.all();
     }
 
     @GetMapping("/{id}")
