@@ -1,5 +1,6 @@
 package com.example.accessingdatamysql.Controller;
 
+import com.example.accessingdatamysql.DTO.RoomDTO;
 import com.example.accessingdatamysql.Entity.Room;
 import com.example.accessingdatamysql.Repository.RoomRepository;
 import com.example.accessingdatamysql.Repository.testRoomRepository;
@@ -44,6 +45,11 @@ public class RoomController {
         return roomService.all();
     }
 
+    @GetMapping("/all-dto")
+    public List<RoomDTO> allDTO() {
+        return roomService.allDTO();
+    }
+
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('ROLE_OWNER')")
     public Room one(@PathVariable Integer id) {
@@ -60,6 +66,16 @@ public class RoomController {
     ) {
         return ResponseEntity.ok(tRoomRepository.getRooms(PageRequest
         .of(pageNumber, size)));
+    }
+
+
+    @GetMapping("/all-pageable-v2")
+    public Page<Room> findAll(
+        @RequestParam Integer pageNumber,
+        @RequestParam Integer size
+    ) {
+        PageRequest pageRequest = PageRequest.of(pageNumber, size);
+        return tRoomRepository.findAll(pageRequest);
     }
 
 }
