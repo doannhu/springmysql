@@ -78,4 +78,19 @@ public class RoomController {
         return tRoomRepository.findAll(pageRequest);
     }
 
+    @GetMapping("/all-pageable-v3")
+    public Page<RoomDTO> findAllDTOPage(
+        @RequestParam Integer pageNumber,
+        @RequestParam Integer size
+    ) {
+        PageRequest pageRequest = PageRequest.of(pageNumber, size);
+        Page<Room> rooms = tRoomRepository.findAll(pageRequest);
+        return rooms.map(room -> new RoomDTO(room.getId(), 
+                                                    room.getTitle(), 
+                                                    room.getDescription(), 
+                                                    room.getPrice(), 
+                                                    room.getArea(), 
+                                                    room.getRating(), 
+                                                    room.getCapacity()));
+    }
 }
