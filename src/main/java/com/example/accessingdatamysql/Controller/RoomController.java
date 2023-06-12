@@ -56,6 +56,7 @@ public class RoomController {
         return roomRepository.findById(id).orElseThrow(() -> new RoomNotFoundException(id));
     }
 
+
     @Autowired
     private testRoomRepository tRoomRepository;
 
@@ -84,7 +85,7 @@ public class RoomController {
         @RequestParam Integer size
     ) {
         PageRequest pageRequest = PageRequest.of(pageNumber, size);
-        Page<Room> rooms = tRoomRepository.findAll(pageRequest);
+        Page<Room> rooms = roomRepository.findAll(pageRequest);
         return rooms.map(room -> new RoomDTO(room.getId(), 
                                                     room.getTitle(), 
                                                     room.getDescription(), 

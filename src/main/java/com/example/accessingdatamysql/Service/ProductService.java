@@ -2,7 +2,7 @@ package com.example.accessingdatamysql.Service;
 
 import com.example.accessingdatamysql.DTO.Product;
 //import com.javatechie.entity.UserInfo;
-import com.example.accessingdatamysql.Repository.UserInfoRepository;
+//import com.example.accessingdatamysql.Repository.UserInfoRepository;
 import jakarta.annotation.PostConstruct;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.crypto.password.PasswordEncoder;

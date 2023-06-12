@@ -10,5 +10,5 @@ import com.example.accessingdatamysql.Entity.Room;
 
 @Repository
 public interface testRoomRepository extends PagingAndSortingRepository<Room, Integer> {
- @Query(value = "SELECT r FROM Room r ") Page<Room> getRooms(Pageable pageable);
+ @Query(value = "SELECT r FROM Room r WHERE r.id = 1") Page<Room> getRooms(Pageable pageable);
 }

@@ -32,7 +32,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/products/welcome","/products/new","/users/new", "/room/add", "/demo/add", "/room/all-pageable", "/room/all-pageable-v2", "/room/all-dto","/image/**").permitAll()
+                .requestMatchers("/products/welcome","/products/new","/users/new", "/room/add", "/demo/add", "/room/all-pageable", "/room/all-pageable-v2", "/room/all-dto","/image/**", "/create-checkout-session").permitAll()
                 .and()
                 .authorizeHttpRequests().requestMatchers("/products/**", "/room/all", "/room/{id}")
                 .authenticated().and().formLogin().and().build();
