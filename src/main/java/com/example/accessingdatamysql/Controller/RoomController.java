@@ -14,6 +14,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import com.example.accessingdatamysql.Service.RoomService;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController // This means that this class is a Controller
@@ -93,5 +94,20 @@ public class RoomController {
                                                     room.getArea(), 
                                                     room.getRating(), 
                                                     room.getCapacity()));
+    }
+
+    @PutMapping("/update/{id}")
+    public Room updateRoom(@RequestBody Room roomRequest, @PathVariable Integer id ) {
+
+            Room roomToUpdate = roomRepository.findById(id).get();
+            roomToUpdate.setTitle(roomRequest.getTitle());
+            roomToUpdate.setDescription(roomRequest.getDescription());
+            roomToUpdate.setPrice(roomRequest.getPrice());
+            roomToUpdate.setIsRented(roomRequest.getIsRented());
+            roomToUpdate.setIsAvailable(roomRequest.getIsAvailable());
+
+            return roomRepository.save(roomToUpdate);
+
+
     }
 }
