@@ -37,7 +37,7 @@ public class RoomController {
 
 
     @GetMapping("/all")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    // @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     // public @ResponseBody Iterable<Room> getAllRooms() {
     //     // This returns a JSON or XML with the users
     //     return roomRepository.findAll();
@@ -99,14 +99,7 @@ public class RoomController {
     @PutMapping("/update/{id}")
     public Room updateRoom(@RequestBody Room roomRequest, @PathVariable Integer id ) {
 
-            Room roomToUpdate = roomRepository.findById(id).get();
-            roomToUpdate.setTitle(roomRequest.getTitle());
-            roomToUpdate.setDescription(roomRequest.getDescription());
-            roomToUpdate.setPrice(roomRequest.getPrice());
-            roomToUpdate.setIsRented(roomRequest.getIsRented());
-            roomToUpdate.setIsAvailable(roomRequest.getIsAvailable());
-
-            return roomRepository.save(roomToUpdate);
+        return roomService.updateRoom(roomRequest, id);
 
 
     }

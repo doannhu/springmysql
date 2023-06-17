@@ -6,10 +6,14 @@ import org.springframework.stereotype.Service;
 
 import com.example.accessingdatamysql.DTO.RoomDTO;
 import com.example.accessingdatamysql.Entity.Room;
+import com.example.accessingdatamysql.Entity.UserInfo;
+import com.example.accessingdatamysql.Repository.OwnerRepository;
 //import com.example.accessingdatamysql.Entity.UserInfo;
 import com.example.accessingdatamysql.Repository.RoomRepository;
+import com.example.accessingdatamysql.Repository.UserInfoRepository;
+import com.example.accessingdatamysql.Entity.Owner;
 
-
+import java.util.stream.Collector;
 //import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.List;
@@ -20,17 +24,27 @@ public class RoomService {
     @Autowired
     private RoomRepository roomRepo;
 
+    @Autowired
+    private OwnerRepository ownerRepository;
+
+    @Autowired
+    private UserInfoRepository userInfoRepository;
+
     // private PasswordEncoder passwordEncoder;
 
     public String addRoom(Room room) {
         
-        // UserInfo copyUserInfo = new UserInfo(0, room.getUserInfo().getName(), room.getUserInfo().getEmail(), passwordEncoder.encode(room.getUserInfo().getPassword()), room.getUserInfo().getRoles());
+        // if (room.getOwner() != null) {
+        //     ownerRepository.save(room.getOwner());
+        // }
 
-        // Room copyRoom = new Room(0, room.getTitle(), room.getDescription(), room.getPrice(), room.getArea(), room.getRating(), room.getCapacity(), copyUserInfo);
+        // if(room.getUserInfo() != null) {
+        //     userInfoRepository.save(room.getUserInfo());
+        // }
 
         roomRepo.save(room);
         
-        return "Room has been added";
+        return "room has been added";
     }
 
     public List<Room> all() {
@@ -45,6 +59,19 @@ public class RoomService {
                                                                     room.getArea(), 
                                                                     room.getRating(), 
                                                                     room.getCapacity())).collect(Collectors.toList());
+    }
+
+    public Room updateRoom(Room roomRequest, Integer id) {
+            Room roomToUpdate = roomRepo.findById(id).get();
+            roomToUpdate.setTitle(roomRequest.getTitle());
+            roomToUpdate.setDescription(roomRequest.getDescription());
+            roomToUpdate.setArea(roomRequest.getArea());
+            roomToUpdate.setPrice(roomRequest.getPrice());
+            roomToUpdate.setCapacity(roomRequest.getCapacity());
+            roomToUpdate.setIsRented(roomRequest.getIsRented());
+            roomToUpdate.setIsAvailable(roomRequest.getIsAvailable());
+
+            return roomRepo.save(roomToUpdate);
     }
 
 }
