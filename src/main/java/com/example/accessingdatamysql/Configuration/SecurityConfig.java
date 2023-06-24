@@ -9,6 +9,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+
 //import org.springframework.security.core.userdetails.User;
 //import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -32,7 +33,22 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/products/welcome","/products/new","/users/new", "/room/add", "/demo/add", "/room/all-pageable", "/room/all-pageable-v2","/room/all-pageable-v3", "/room/all-dto","/image/**", "/create-checkout-session/room/**","/room/update/**", "/owner/register", "/owner/update/**", "/owner/all", "/room/all").permitAll()
+                .requestMatchers("/products/welcome",
+                                            "/products/new",
+                                            "/users/new", 
+                                            "/room/add", 
+                                            "/demo/add", 
+                                            "/room/all-pageable", 
+                                            "/room/all-pageable-v2",
+                                            "/room/all-pageable-v3", 
+                                            "/room/all-dto",
+                                            "/image/**", 
+                                            "/create-checkout-session/room/**",
+                                            "/room/update/**", 
+                                            "/owner/register", 
+                                            "/owner/update/**", 
+                                            "/owner/all", 
+                                            "/room/all").permitAll()
                 .and()
                 .authorizeHttpRequests().requestMatchers("/products/**", "/room/{id}")
                 .authenticated().and().formLogin().and().build();
@@ -50,5 +66,7 @@ public class SecurityConfig {
         authenticationProvider.setPasswordEncoder(passwordEncoder());
         return authenticationProvider;
     }
+
+
 
 }

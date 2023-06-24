@@ -10,12 +10,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 // import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import com.example.accessingdatamysql.Service.RoomService;
 
 import java.io.IOException;
 import java.util.List;
+
 
 @RestController // This means that this class is a Controller
 @RequestMapping("/room") // This means URL's start with /demo (after Application path)
@@ -49,12 +52,6 @@ public class RoomController {
     @GetMapping("/all-dto")
     public List<RoomDTO> allDTO() {
         return roomService.allDTO();
-    }
-
-    @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROLE_OWNER')")
-    public Room one(@PathVariable Integer id) {
-        return roomRepository.findById(id).orElseThrow(() -> new RoomNotFoundException(id));
     }
 
 
@@ -103,4 +100,45 @@ public class RoomController {
 
 
     }
+
+    @GetMapping("/currentUserName")
+    public String getUserName() {
+        Room room = roomRepository.findById(1).orElseThrow(() -> new RoomNotFoundException(1));
+
+        String nameCheck = room.getUserInfo().getName();
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        String currentUserName = authentication.getName();
+
+        String name = nameCheck + currentUserName;
+
+        return name;
+    }
+
+    @GetMapping("/{id}")
+    public String getOne(@PathVariable Integer id) {
+        Room room = roomRepository.findById(id).orElseThrow(() -> new RoomNotFoundException(id));
+
+        String nameCheck = room.getUserInfo().getName();
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        String currentUserName = authentication.getName();
+
+        // if (nameCheck == currentUserName) {
+        //     return new RoomDTO(room.getId(), 
+        //                         room.getTitle(),
+        //                         room.getDescription(), 
+        //                         room.getPrice(), 
+        //                         room.getArea(), 
+        //                         room.getRating(), 
+        //                         room.getCapacity());
+        //         }
+        // else return null;
+        if (nameCheck.equals(currentUserName)) 
+            return "Authorised!";
+        else return "Not Authorised! nameCheck: " + nameCheck + " & currentUserName: " + currentUserName;
+    }
+    
 }

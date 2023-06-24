@@ -24,24 +24,16 @@ public class RoomService {
     @Autowired
     private RoomRepository roomRepo;
 
-    @Autowired
-    private OwnerRepository ownerRepository;
+
 
     @Autowired
-    private UserInfoRepository userInfoRepository;
+    private UserService userService;
 
-    // private PasswordEncoder passwordEncoder;
+
 
     public String addRoom(Room room) {
         
-        // if (room.getOwner() != null) {
-        //     ownerRepository.save(room.getOwner());
-        // }
-
-        // if(room.getUserInfo() != null) {
-        //     userInfoRepository.save(room.getUserInfo());
-        // }
-
+        userService.addUser(room.getUserInfo());
         roomRepo.save(room);
         
         return "room has been added";
