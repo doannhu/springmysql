@@ -59,7 +59,7 @@ public class RoomService {
                                                                     room.getCapacity())).collect(Collectors.toList());
     }
 
-    public Room updateRoom(Room roomRequest, Integer id) {
+    public String updateRoom(Room roomRequest, Integer id) {
             Room roomToUpdate = roomRepo.findById(id).get();
             
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -69,7 +69,7 @@ public class RoomService {
             UserInfo roomOwner = optionalVal.get();
             List<Room> rooms = roomOwner.getRooms();
             boolean roomExist = rooms.contains(roomToUpdate);
-            
+
             if (roomExist) {
                     roomToUpdate.setTitle(roomRequest.getTitle());
                     roomToUpdate.setDescription(roomRequest.getDescription());
@@ -79,10 +79,11 @@ public class RoomService {
                     roomToUpdate.setIsRented(roomRequest.getIsRented());
                     roomToUpdate.setIsAvailable(roomRequest.getIsAvailable());
 
-                    return roomRepo.save(roomToUpdate);
+                    roomRepo.save(roomToUpdate);
+                    return "room has been updated";
             }
             else {
-                return null;
+                return "room not found or not authorized";
             }
 
 

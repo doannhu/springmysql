@@ -49,8 +49,8 @@ public class SecurityConfig {
                                             "/owner/all", 
                                             "/room/all").permitAll()
                 .and()
-                .authorizeHttpRequests().requestMatchers("/products/**", "/room/{id}")
-                .authenticated().and().formLogin().and().build();
+                .authorizeHttpRequests().requestMatchers("/products/**", "/room/{id}", "room/update/**")
+                .authenticated().and().httpBasic().and().build();
     }
 
     @Bean

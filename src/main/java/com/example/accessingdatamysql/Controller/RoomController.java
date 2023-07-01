@@ -87,7 +87,7 @@ public class RoomController {
     }
 
     @PutMapping("/update/{id}")
-    public Room updateRoom(@RequestBody Room roomRequest, @PathVariable Integer id ) {
+    public String updateRoom(@RequestBody Room roomRequest, @PathVariable Integer id ) {
 
         return roomService.updateRoom(roomRequest, id);
 
