@@ -1,21 +1,20 @@
 package com.example.accessingdatamysql.Configuration;
 
+
 import com.example.accessingdatamysql.Service.UserInfoUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-//import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
-//import org.springframework.security.core.userdetails.User;
-//import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-//import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -28,6 +27,7 @@ public class SecurityConfig {
     public UserDetailsService userDetailsService() {
         return new UserInfoUserDetailsService();
     }
+
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -43,8 +43,7 @@ public class SecurityConfig {
                                             "/room/all-pageable-v3", 
                                             "/room/all-dto",
                                             "/image/**", 
-                                            "/create-checkout-session/room/**",
-                                            "/room/update/**", 
+                                            "/create-checkout-session/room/**", 
                                             "/owner/register", 
                                             "/owner/update/**", 
                                             "/owner/all", 

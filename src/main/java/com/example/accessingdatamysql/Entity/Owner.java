@@ -3,7 +3,6 @@ package com.example.accessingdatamysql.Entity;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -11,13 +10,11 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-import java.util.HashSet;
+import lombok.NoArgsConstructor;
+
 import java.util.List;
-import java.util.Set;
+
 
 @Entity
 @Data
@@ -26,12 +23,13 @@ import java.util.Set;
 public class Owner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String name;
     private String email;
     private String password;
+    private String roles;
     
-    @OneToMany(targetEntity = Room.class, cascade = CascadeType.ALL)
-    @JoinColumn(name="owned_by", referencedColumnName = "name")
-    private List<Room> rooms;
+    // @OneToMany(targetEntity = Room.class, cascade = CascadeType.ALL )
+    // @JoinColumn(name="owned_by")
+    // private List<Room> rooms;
 }

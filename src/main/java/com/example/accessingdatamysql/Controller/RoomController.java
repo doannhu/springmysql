@@ -1,6 +1,7 @@
 package com.example.accessingdatamysql.Controller;
 
 import com.example.accessingdatamysql.DTO.RoomDTO;
+import com.example.accessingdatamysql.DTO.RoomRentedDTO;
 import com.example.accessingdatamysql.Entity.Room;
 import com.example.accessingdatamysql.Repository.RoomRepository;
 import com.example.accessingdatamysql.Repository.testRoomRepository;
@@ -82,15 +83,7 @@ public class RoomController {
         @RequestParam Integer pageNumber,
         @RequestParam Integer size
     ) {
-        PageRequest pageRequest = PageRequest.of(pageNumber, size);
-        Page<Room> rooms = roomRepository.findAll(pageRequest);
-        return rooms.map(room -> new RoomDTO(room.getId(), 
-                                                    room.getTitle(), 
-                                                    room.getDescription(), 
-                                                    room.getPrice(), 
-                                                    room.getArea(), 
-                                                    room.getRating(), 
-                                                    room.getCapacity()));
+        return roomService.pageableRoomDTOv3(pageNumber, size);
     }
 
     @PutMapping("/update/{id}")
@@ -101,44 +94,50 @@ public class RoomController {
 
     }
 
-    @GetMapping("/currentUserName")
-    public String getUserName() {
-        Room room = roomRepository.findById(1).orElseThrow(() -> new RoomNotFoundException(1));
+    // @GetMapping("/currentUserName")
+    // public String getUserName() {
+    //     Room room = roomRepository.findById(1).orElseThrow(() -> new RoomNotFoundException(1));
 
-        String nameCheck = room.getUserInfo().getName();
+    //     String nameCheck = room.getUserInfo().getName();
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    //     Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); // get current user information
 
-        String currentUserName = authentication.getName();
+    //     String currentUserName = authentication.getName();
 
-        String name = nameCheck + currentUserName;
+    //     String name = nameCheck + currentUserName;
 
-        return name;
-    }
+    //     return name;
+    // }
 
-    @GetMapping("/{id}")
-    public String getOne(@PathVariable Integer id) {
-        Room room = roomRepository.findById(id).orElseThrow(() -> new RoomNotFoundException(id));
+    // @GetMapping("/{id}")
+    // public RoomRentedDTO getOne(@PathVariable Integer id) {
 
-        String nameCheck = room.getUserInfo().getName();
+    //     // check if request user is renter
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    //     Room room = roomRepository.findById(id).orElseThrow(() -> new RoomNotFoundException(id));
 
-        String currentUserName = authentication.getName();
+    //     String nameCheck = room.getUserInfo().getName();
 
-        // if (nameCheck == currentUserName) {
-        //     return new RoomDTO(room.getId(), 
-        //                         room.getTitle(),
-        //                         room.getDescription(), 
-        //                         room.getPrice(), 
-        //                         room.getArea(), 
-        //                         room.getRating(), 
-        //                         room.getCapacity());
-        //         }
-        // else return null;
-        if (nameCheck.equals(currentUserName)) 
-            return "Authorised!";
-        else return "Not Authorised! nameCheck: " + nameCheck + " & currentUserName: " + currentUserName;
-    }
+    //     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+    //     String currentUserName = authentication.getName();
+
+    //     if (nameCheck.equals(currentUserName)) {
+    //         // control return - part of entity
+    //         RoomRentedDTO rentedRoomDTO = new RoomRentedDTO(room.getId(), 
+    //                                                     room.getTitle(),
+    //                                                     room.getDescription(), 
+    //                                                     room.getPrice(), 
+    //                                                     room.getArea(), 
+    //                                                     room.getRating(), 
+    //                                                     room.getCapacity(),
+    //                                                     room.getIsRented(),
+    //                                                     room.getIsAvailable(),
+    //                                                     room.getUserInfo().getName());
+
+    //         return rentedRoomDTO;
+    //     }
+    //     else return null;
+    // }
     
 }

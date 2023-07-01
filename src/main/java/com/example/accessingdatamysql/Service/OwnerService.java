@@ -3,6 +3,7 @@ package com.example.accessingdatamysql.Service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.accessingdatamysql.Entity.Owner;
@@ -14,8 +15,11 @@ public class OwnerService {
     @Autowired
     private OwnerRepository ownerRepository;
 
-    public String addOwner(Owner owner) {
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
+    public String addOwner(Owner owner) {
+        owner.setPassword(passwordEncoder.encode(owner.getPassword()));
         ownerRepository.save(owner);
         return "Owner has been added";
     }
