@@ -1,7 +1,7 @@
 
 # Room booking for students
 
-This app allows house owners manage their rooms and students view and pick rooms for renting.
+:house_with_garden: This app allows house owners manage their rooms and students view and pick rooms for renting.
 
 
 
