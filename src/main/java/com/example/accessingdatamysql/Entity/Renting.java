@@ -14,11 +14,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Booking {
+public class Renting {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private Date starDate;
     private Date endDate;
+    private Float rentalBond;
 }

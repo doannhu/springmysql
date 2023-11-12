@@ -29,4 +29,9 @@ public class UserInfo {
     @OneToMany(targetEntity = Room.class, cascade = CascadeType.ALL)
     @JoinColumn(name="linkToRoom")
     private List<Room> rooms;
-}
+
+    @OneToMany(targetEntity = Renting.class, cascade = CascadeType.ALL)
+    @JoinColumn(name="rentingContract")
+    private List<Renting> rentingList;
+    
+}   

@@ -87,10 +87,10 @@ public class RoomController {
     }
 
     @PutMapping("/update/{id}")
+    @PreAuthorize("hasAuthority('ROLE_OWNER')")
     public String updateRoom(@RequestBody Room roomRequest, @PathVariable Integer id ) {
 
         return roomService.updateRoom(roomRequest, id);
-
 
     }
 
