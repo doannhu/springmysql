@@ -15,4 +15,5 @@
  - :scientist: The owners and students is provided authentication and authorisation by Spring Security framework.
  - :credit_card: The payment is processed through Stripe API.
  - :hamburger: The data returned from database is processed through DTO and pagination.
+ - :seedling: Using Eureka Server as service discovery. 
 
