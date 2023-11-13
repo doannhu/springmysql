@@ -38,15 +38,29 @@
 version: "3.8"
 
 services:
+  service-discovery:
+    build: ./serviceDiscovery/serviceDiscovery
+    container_name: service-discovery
+    restart: always
+    ports:
+      - 8761:8761
+    expose:
+      - "8761"
   server:
     build: .
+    container_name: web-service
     restart: always
     ports:
       - 8080:8080
     depends_on:
       - mysqldb
+      - service-discovery
+    links:
+      - service-discovery
+      - mysqldb
   mysqldb:
     image: "mysql:8.0.33"
+    container_name: mysql-database
     restart: always
     ports:
       - 3307:3306
