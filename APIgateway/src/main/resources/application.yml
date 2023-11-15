@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    gateway:
+      routes:
+        - id: service1
+          uri: lb://service1
+          predicates:
+            - Path=/service1/**
+          filters:
+            - StripPrefix=1
+server:
+  port: 8081
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${eureka_url:http://service-discovery:8761/eureka/}
